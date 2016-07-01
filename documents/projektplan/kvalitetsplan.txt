@@ -1,0 +1,5 @@
+Kvalitetsplan
+
+Ett system som fungerar korrekt och beständigt klassas som en självklarhet för en färdig produkt. Under projektets gång kommer därför flera tester att genomföras på de olika delar i systemet, detta är för att undvika krångliga felsökningar på ett helt system om det visar sig vara något fel. När produkten är färdig utförs även då tester, denna gång för att kontrollera att produkten i sin helhet fungerar som den ska. Kontrollerna kommer att utföras av flera olika medlemmar, dock inte av personen som utformade systemdelen i fråga då det är enklare att hitta fel om det undersöks med ett nytt perspektiv.
+
+Testerna kommer utföras på både hårdvara liksom mjukvara. Testerna för mjukvaran kommer visa att behandlingen av signalerna sker på korrekt sätt. I hårdvaran kontrolleras bland annat så AD-omvandlaren konverterar ljud-vågorna till signaler på samma sätt som DA-omvandlaren gör motsatsen. Detta så att förändringar av ljudet endast sker kontrollerat i mjukvaran, alltså ljudet efter DA-omvandlaren är samma som ljudet innan AD-omvandlaren med enbart de förändringar som programmerats i mjukvaran. 

@@ -1,0 +1,43 @@
+Aktiviteter
+
+Beskrivning                                                                 Tidsåtgång
+Projektmöten                                                                84 timmar
+Skrivning & Granskning av dokumentation omkring projektmöten                8 timmar
+Planering inför skrivande a projektplan                                     16 timmar
+Skrivning av projektplan                                                    32 timmar
+Föreläsningar                                                               176 timmar
+Studering av föreläsningsmaterial                                           88 timmar
+Laborationer                                                                32 timmar
+Studering av kursmaterial                                                   32 timmar
+Läs på om ljudsamples                                                       16 timmar
+Läs på om hårdvara som ska användas                                         32 timmar
+Läs på om elektronik som behöver kopplas till AD/DA omvandlare              16 timmar
+Konstruktion av elektronik som kopplas till AD/DA omvandlare                64 timmar
+Testning & veriviering av funktion som interagerar med DA-omvandlare        8 timmar
+Läs på om AD-omvandlare                                                     8 timmar
+Progammering av funktion som inteargerar med DA-omvandlare                  32 timmar
+Testning & verifiering av funktion som interagerar med DA-omvandlare        8 timmar
+Läs på om DA-omvandlare                                                     8 timmar
+Programmering av funktion som interagerar med DA-omvandlaren                32 timmar
+Testning & verifierng av funktion som interagerar med DA-omvandlaren        8 timmar
+Läs på om tonkontrollsalgoritm                                              8 timmar
+Programmering av funktion som implementerar tonkontrollsalgoritmerna        32 timmar
+Testning & verifiering av funktion med tonkontrollsalgoritmer               8 timmar
+Läs på om eko-algoritm                                                      8 timmar
+Programmering av funktion som implementerer eko-algoritm                    32 timmar
+Testning & verifiering av funktion som implementerar eko-algoritm           8 timmar
+Läs på om användning av serieport från inbyggt system                       8 timmar
+Programmering av funktion som tar emot konfiguraton från PC                 32 timmar
+Testning & verifiering av funktion som tar emot konfiguration från PC       8 timmar
+Läs på om användning av serieport från PC                                   8 timmar
+Programmering av funktion som skickar konfiguration till inbyggt system     32 timmar
+Testning & verifiering av funktion som skickar konfiguration                8 timmar
+Läs på om GUI-programmering                                                 8 timmar
+Programmering av GUI-program                                                32 timmar
+Testning & verifiering av GUI-program                                       8 timmar
+Programmering av main-funktion som sätter ihop de olika delarna             32 timmar
+Testning & verifiering av main-funktion                                     8 timmar
+Planering av skrivning av projektrapport                                    64 timmar
+Skrivning av projektrapport                                                 500 timmar
+Förberedelser för presentaton                                               32 timmar
+Presentation av projekt                                                     4 timmar

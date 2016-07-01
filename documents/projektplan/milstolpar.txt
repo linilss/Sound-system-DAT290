@@ -1,0 +1,13 @@
+Milstolpar
+
+Vad                                                                 När
+Utkast kursplan färdigskriven                                       2015-09-09 (Onsdag LV2)
+Kursplan inlämnad                                                   2015-09-11 (Fredag LV2)
+Detaljplanering av teknisk del av projektet klart                   2015-09-18 (Fredag LV3)
+Planering av skrivande av projektrapport klar                       2015-09-25 (Fredag LV4)
+De enskilda tekniska delarna klara, testade & verifierade           2015-10-02 (Fredag LV5)
+Tidig version av projektrapport inlämnad                            2015-10-09 (Fredag LV6)
+Oppositionskommentar inlämnad                                       2015-10-15 (Torsdag LV7)
+Slutprodukt klar, testad & verifierad                               2015-10-16 (Fredag LV7)
+Demonstration genomförd                                             2015-10-20 (Tisdag LV8)
+Slutgiltlig projektrapport inlämnad                                 2015-10-22 (Torsdag LV8)

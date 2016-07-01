@@ -1,0 +1,2 @@
+Projektets syfte är att utveckla fram en stabil samplingsprodukt som har möjlighet att i realtid läsa in och manipulera ljudet för att sedan skicka vidare det till lämplig periferienhet. 
+För att säkerställa användarvänlighet kommer ett GUI också att implementeras och på så sätt göra det enklare att styra produkten.

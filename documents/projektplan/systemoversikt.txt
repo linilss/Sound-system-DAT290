@@ -1,0 +1,25 @@
+4 Systemöversikt
+
+4.1 Systembeskrivning
+
+Konverteringar av våra signaler ska ske mellan de analoga och digitala typerna, med tanke på att processorn endast tillåter binära tal. Mikroprocessorn som används är av DSP-typ. På Figur 1 nedan så visas detaljerna som görs när vi konverterar mellan analogt och digitalt, såsom att filtrera ljudet både före, respektive efter vardera konvertering. Både i slutet och i början av våra in-, respektive utsignaler så behöver vi konvertera mellan bipolära och unipolära komponenter. Dessa behövs då voltets räckvidd är olika när det gäller vad som är tillåtet och vad signalens strömstorlek är. Sedan så låter vi signalerna passera ett lågpassfilter för att begränsa signalen till ett specifikt frekvensområde. Ljudet läses sedan in vid samplingsskedet efter den första filtreringen för att senare omvandlas till binär kod. Efter AD-omvandlingen så kommer det digitala ljudet att behandlas av signalprocessorn (också mer känt som DSP, Digital signal processing). Här ska ett flertal funktioner justera om signalerna (se avsnitt 4.2), för att efteråt kunna omvandlas tillbaka till sin tidigare analoga typ. Även då så behöver vi filtrera ljudet när det har blivit behandlat inne i processorn, och konvertera tillbaka till det tidigare bipolära . Sen är vi klara! Vår samplingsklocka kommer att användaas för att tidvis kunna sampla datapunkter vid processens gång. Stegen som är kopplade till klockan måste arbeta i en synkroniserad takt.
+
+Figur 1: Vi använder oss av följande steg från insignalen på vänster sida till utsignalen. Samtliga steg förutom filtreringsprocesserna påverkas av samplingsklockan.
+
+Denna systembeskrivning är preliminär, och kan ändras under projektets gång.
+
+4.2 Kompletterade funktioner
+
+Vårt fokus ligger på två olika funktioner, plus en implementation av flyttal inom båda av dem. Tonkontrollerna och ekoeffekten är tänkt att kunna justeras genom ett GUI (Graphical User Interface), det vill säga ett program där ljudet som vi får in kan modifieras av oss. Det ska senare kunna låta annorlunda när det återigen passerar ut genom högtalarna/hörlurarna, beroende på våra justeringar.
+
+4.2.1 Tonkontroller
+
+Möjligheterna till att kontrollera frekvensernas ljudnivåer ska implementeras för att kunna få en equalizer-liknande effekt av det som konverteras in till vårt DSP. Basen och diskanten ska kunna stärkas eller dämpas via så kallade band. Även en mittfrekvens mellan våra band finns för att ljudnivån ska kunna höjas och sänkas.
+
+4.2.2 Ekoeffekt
+
+Vi ska här kunna välja hur lång tid det ska ta tills våra direkta och fördröjda signaler börjar spelas upp. Dess fördröjning ska antingen ske vid in- eller utsignalen.
+
+4.2.3 Algoritmer med flyttal
+
+När de två funktionerna har implementerats så kommer många av variablerna därifrån att innehålla fixtal. Här får vi möjlighet att ersätta dessa till flyttal. Detta kräver mer kapacitet från processorn eftersom tallängden kan behöva expanderas i bitar, men ljudkvalitén kommer blir bättre. Användandet av flyttal innebär dessutom att vi kan få en större upplösning på våra insignaler och beräkningskonstanter, samt att vi slipper både avrundning och bottning.

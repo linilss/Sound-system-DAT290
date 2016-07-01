@@ -1,0 +1,63 @@
+Generellt:
+* [ALLA] Läs på om hårdvaran vi ska använda
+* [ALLA] Läs på om ljudsamples
+* Kom överrens om konventioner för hur de olika bitarna i programmet ska prata med varandra
+  - [ALLA] Namn på funktioner så andra delar kan använa dessa innan de är skrivna
+  - [AD-omvandling+DA-omvandling+Tonkontroll+Eko-effekt] Utformning av strukt som lagrar ett ljudsample
+  - [PC-kommunikation+Kommunikation-inbyggt-system] Protokoll för kommunikation
+  - [GUI-program+Kommunikation-PC] Val av programmeringsspråk på PC
+
+Sammansättning:
+* Skriv main-funktion som:
+  - Håller reda på inställningar sända från PC
+  - Tar funktionerna skrivna av andra och använder dessa för att i en loop:
+    1) Läsa inställningar från PC
+    2) Läsa ljudsample från AD-omvandlare
+    3) köra det genom tonkontrolls- och eko-filter
+    4) Skriva resultatet till DA-omvandlare
+* Testa att programmet fungerar som det ska
+* Låt någon annan verifiera att programmet gör vad som står i projektplanen
+
+AD-Omvandling:
+* Läs på om AD-omvandlaren
+* Skriv funktion som läser ljudsample från AD-omvandlare, konverterar till float, och returnerar strukt
+* Skriv testprogram som testar att funktionen fungerar
+* Låt annan person verifiera att funktionen gör vad som står i projektplanen
+
+DA-Omvandling:
+* Läs på om DA-omvandlaren
+* Skriv funktion som tar strukt med ljudsample, konverterar från float, och skriver till DA-omvandlare
+* Skriv testprogram som testar att funktionen fungerar
+* Låt någon annan person verifiera att funktionen gör vad som står i projetplanen
+
+Tonkontroll:
+* Läs på om tonkontrolls-algorithm
+* Skriv funktion som tar ljudsample, gränserna för frekvensband, och mängden dämpning/förstärkning i varje band.
+  Funktionen modifierar ljudsamplet enligt parametrarna den får.
+* Skriv testprogram som testar att funktionen fungerar
+* Låt någon annan person verifiera att funktionen gör vad som står i projektplanen
+
+Eko-effekt:
+* Läs på om eko-algorithm
+* Skriv funktion som tar ljudsample samt parametrar för eko (typ, längd, styrka), och modifierar ljudsamplet så det
+  har har eko-effekten.
+* Skriv testprogram som testar att funktionen fungerar
+* Låt någon annan person verifiera att funktionen gör vad som står i projektplanen
+
+Kommunikation inbyggt system:
+* Läs på om serieport
+* Skriv funktion för inbyggt system som läser serieport och returnerar eventuella ändrade inställningar
+* Skriv testprogram som testar att funktionerna fungerar
+* Låt någon annan person verifiera att funktionerna gör vad som står i projektplanen
+
+Kommunikation PC:
+* Läs på om serieport
+* Skriv funktion för PC som tar inställningar och skriver till
+* Skriv testprogram som testar att funktionerna fungerar
+* Låt någon annan person verifiera att funktionerna gör vad som står i projektplanen
+
+GUI-Program:
+* Skriv GUI-program där man kan välja inställningar
+* Använd funktion från Kommunikation med PC för att skicka inställningar till serieport
+* Testa programmet
+* Låt någon annan person verifiera att programmet gör vad som står i projektplanen

@@ -1,0 +1,285 @@
+%Template created for DAT290
+%Per Larsson-Edefors, Chalmers
+%v2013: 2013-08-21
+%v2014: 2014-08-28, 2014-11-11
+%v2015: 2015-08-24
+
+
+\documentclass[a4paper]{article}
+
+%Figure support for \includegraphics
+\usepackage{graphicx}
+
+%Control of caption font for figures and tables
+\usepackage[font=small]{caption}
+
+%Setting up how paragraphs are formatted
+\setlength{\parindent}{0mm}
+\setlength{\itemsep}{0ex}
+\setlength{\parskip}{2ex}
+\setlength{\parsep}{2ex}
+\setlength{\partopsep}{0ex}
+\setlength{\topsep}{0ex}
+
+%Swedish is supported once we add these packages
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+
+\title{
+{\bf Projektplan DAT290}\\
+\vspace{0.2cm}
+%
+%Give the project name below
+%
+Samplat ljudsystem Projektgrupp 2\\ 
+\vspace{1cm}
+%
+%Give the project group member names below
+%Note that \\ terminates the line
+%
+Lucas Bäckvall, Ajla Cano, Daniel Chai, Andreas Eriksson, Adis Mahmutovic,\\
+Johan Ben Mohammad, Linus Nilsson, Kevin Nordenhög\\
+\vspace{1cm}
+2015-09-09\\
+\vspace{7cm}
+%
+%Give the name of the member responsible for review and the date
+%when the review was finalized.
+%
+%Give the project leader name and the date when the he/she approved
+%the project plan
+%
+%No signatures are necessary, but the names are as they give us *traceability*
+%
+\normalsize{
+  \begin{tabular}{|l|l|l|}  \hline
+              & \bf Namn                           & \bf Datum   \\ \hline \hline
+     Granskad &    Lucas Bäckvall                   & 2015-09-28  \\ \hline
+     Godkänd  &        Ajla Cano           & 2015-09-28  \\ \hline
+  \end{tabular}}
+}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+%----------------------------------------------------------------------
+
+\section{Syfte}
+
+Syftemålet med projektet är att framställa en stabil samplingsprodukt som kommer ge en eventuellt bättre lyssningsupplevelse genom olika effekter, så som olika filter samt en eko-effekt.
+
+\section{Mål}
+
+Målet med projektet är att skapa ett system som kan hantera, behandla och manipulera analogt ljud som konverteras till digitala signaler. Produkten kommer att kunna läsa av analoga ljudsignaler från en vald källa och skicka ut ljudet igen efter eventuella redigeringar från användaren. Inläsningen kommer att ske i realtid för att sedan manipulera ljudet följt av att det skickas vidare till lämplig periferienhet. 
+För att säkerställa användarvänlighet kommer ett användargränssnitt också att implementeras och på så sätt göra det enklare att styra produkten. Redigeringar som användaren kan använda sig av kommer att innefatta:
+
+\begin{itemize}
+  \item En funktion som kan skapa ett eko till ljudet, en effekt som är mer känt som ``delay''.
+  \item Produkten kommer att stödja en tonkontroll som möjliggör för användaren att sänka eller höja styrkan på tre olika frekvensområden, vilket tillåter mer avancerade ljudredigeringar. Inom musikbranschen är funktionen känd som ``equalization''. 
+  \item Projektgruppens mål är att vidareutveckla produkten på så sätt att den besitter en ökad stabilitet genom att använda flyttal i produktens kodning och programmering.
+
+\end{itemize}
+
+\section{Bakgrund}
+
+Att behandla ljud digitalt ger flera fördelar. Digitala ljudfilter är exakta och effekter kan implementeras med algoritmer i processorer. Dessutom är dagens konsumenter vana vid att kunna spela upp ljud ifrån sina digitala enheter. För att en processor skall åstadkomma detta behövs en metod för att hantera analoga signaler.
+
+En metod för att hantera analoga signaler är att konvertera dem till digitala signaler med sampling. Kortfattat betyder det att man med jämna mellanrum sparar spänningsnivån i den analoga signalen som ett binärtal digitalt. \cite{adc}
+
+Två vanliga ljudbehandlignar är equalization och delay. Equalization innebär att man höjer eller sänker ljudstyrkan i specifika frekvensområden för att anpassa ljudet till syftet. Delay är en ekoeffekt som kan användas för att få intrycket av att ljudet spelas i ett större rum. Det kan också användas ifall man vill ha en eko effekt.
+
+\section{Systemöversikt}
+
+En analog insignal skall konverteras till en digital signal så att processorn kan hantera den. Mikroprocessorn som används är av DSP-typ. På Figur 1 så visas delstegen vid konvertering både från analogt till digtalt (AD) och ifrån digitalt till analogt (DA). Den analoga signalen omvandlas ifrån bipolär till unipolär komponent för att matcha signalstyrka och tillåten styrka. Sedan filtreras den i ett lågpassfilter för att begränsa signalen till det frekvensområdet AD-omvandlaren fungerar på. Ljudet omvandlas i AD-omvandlaren med sampling till binärkod. Samplingsklockan kommer att användas för att synkronisera AD-omvandlingen, DA-omvandlingen och ljudbehandlingen vid processens gång. Stegen som är kopplade till klockan måste arbeta i en synkroniserad takt. Efter AD-omvandlingen så kommer det digitala ljudet att behandlas av signalprocessorn (också kallad DSP unit, Digital signal processing unit). Här ska ett flertal funktioner justera signalerna (se avsnitt 4.1), för att efteråt omvandlas tillbaka till en analog signal. Även då så behöver ljudet filtreras efter DA-omvandlingen, och konvertera ifrån unipolär till bipolär.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\columnwidth]{../../figurer/NEWprocess}
+  \label{fig:Gantt1}
+\end{figure}
+
+Figur 1: Vi använder oss utav följande steg från insignalen på vänster sida till utsignalen. Samtliga steg förutom filtreringsprocesserna påverkas av samplingsklockan.
+
+\newpage
+\subsection{DSP funktioner}
+
+Två DSP funktioner skall användas, plus en implementation av flyttal i båda funktionerna. Tonkontrollerna och ekoeffekten är tänkt att kunna justeras genom ett GUI (Graphical User Interface), det vill säga ett program där ljudet som vi får in kan modifieras av oss. Det ska kunna låta annorlunda när det passerar ut genom högtalarna/hörlurarna, beroende på våra justeringar.
+
+\subsubsection{Tonkontroller}
+
+Möjligheten att kontrollera frekvensernas ljudnivåer ska implementeras för att kunna få en equalizer-liknande effekt. Hela frekvensomfånget delas upp i tre olika band. Både bandens frekvensområden samt bandens ljudförstärkning skall gå att justera via GUIt.
+
+\subsubsection{Ekoeffekt}
+
+Ekoeffekten adderar kontinuerligt en dämpad och fördröjd version av signalen till signalen. Både fördröjning och dämpning skall vara justerbart via GUIt.
+
+\subsubsection{Algoritmer med flyttal}
+
+När de två funktionerna har implementerats så kommer många av variablerna därifrån att vara fixtal. De kommer istället att implementeras med flyttal. Detta kräver mer kapacitet från processorn eftersom tallängden kan behöva expanderas i bitar, men ljudkvalitén kommer blir bättre. Användandet av flyttal innebär dessutom en större upplösning på insignaler och beräkningskonstanter, samt att problem med både avrundning och bottning undviks.
+
+\newpage
+\section{Resursplan}
+\label{sec:resurser}
+
+
+Efter det första projektmötet fördelades roller till samtliga medlemmar. Att utses till en roll innebär inte att personen i fråga ensamt ansvarar för sitt område, utan snarare att rollinnehavaren ser till att utvecklingen inom området går i rätt riktning. Dessutom ser rollinnehavaren till att det tidigt kommuniceras till resten av projektgruppen om problem uppstått. 
+
+\begin{table}[h!]
+\centering
+  \small
+  \def\arraystretch{1.1}
+  \begin{tabular}{|l|l|l|} \hline
+    Namn                & \bf Ansvar                                   & \bf Kontakt   \\ \hline \hline
+    Ajla Cano    & Projektledare                             		 & ajlac@student.chalmers.se  \\ \hline
+    Adis Mahmutovic  		 & Dokumentationsansvarig                & adism@student.chalmers.se   \\ \hline
+    Andreas Eriksson    	 & Systemintegrationsansvarig            & eriandre@student.chalmers.se  \\ \hline
+    Lucas Bäckvall    		 & Granskningsansvarig                   & lucasba@student.chalmers.se  \\ \hline
+    Kevin Nordenhög    		 & Verifieringsansvarig                  & nkevin@student.chalmers.se  \\ \hline
+    Linus Nilsson    		 & Resursansvarig                        & linunil@student.chalmers.se  \\ \hline
+    Johan Ben Mohammad    	 & Teknikansvarig                        & johanmo@student.chalmers.se  \\ \hline
+    Daniel Chai	    		 & Versionsansvarig	                & chaid@student.chalmers.se  \\ \hline
+  \end{tabular}
+\end{table}
+
+
+
+Projektledaren leder projektet och ser till att kallelser till mötena samt samarbetet inom gruppen fungerar. Projektets dokumentationsansvarige ansvarar för att angelägna filer hamnar i rätt mapp. Denne sammanställer även de uppdelade dokumenten till fullständiga LaTeX-filer. Systemintegrationsansvarige sköter kommunikationen mellan hårdvara och mjukvara. Granskningsansvarige ser till att dokument granskas, för att de inte ska innehålla brister vid inlämning. Verifieringsansvarig följer en tydlig kvalitetsplan för att verifiera att hård- och mjukvara fungerar planenligt. Resursansvarig ansvarar för de resurser gruppen tillhandahåller, såsom dialog med lärarna, bokning av rum och hårdvara. Teknikansvarige har som roll att hålla lite bättre koll än de andra på den hårdvara som används så att andra gruppmedlemmar kan konsultera denne för enklare frågor angående just hårdvaran. Gitansvarig ser till att git inte strular och att alla förstår hur Git används.
+
+Större delen av den tunga och viktiga kommunikationen inom gruppen sker via arbets- och projektmöten. Projektmötena i synnerhet då det är möjligt att bolla idéer och funderingar med projektmentorn Christoffer Fougstedt. Gruppen använder sig även av mobilapplikationen Messenger, i vilken en gruppchatt skapats där kortare kommunikation och småfrågor ligger i fokus. Dessutom används en Facebook-grupp för återkommande ärenden så att angelägna meddelanden inte försvinner i flödet.
+
+Både projekts- och arbetsmöten hålls i EDIT-husets grupprum. Dessa bokas i slutet av pågående möten, i samband med planeringen inför nästa. Det uppdelade arbetet sker i laborationsutrymmen, även de i EDIT-huset, men även andra ställen på Campus.	 
+
+Hårdvarumässigt kommer projektet byggas kring processorn STM32F407VGT6 och dess inbyggda periferienheter AD- och DA-omvandlare. Processorn, från företaget STMicroelectronics, är baserad på Cortex-M4, deras mest avancerade arkitekturvariant. Med 1 Mbyte FLASH och 192 kbyte SRAM körs den med klockfrekvensen 168 MHz \cite{A1}
+\newpage
+\section{Milstolpar}
+
+\begin{table}[h!]
+\centering
+  \small
+  \def\arraystretch{1.1}
+  \begin{tabular}{|l|l|l|} \hline
+    Nr  & \bf Beskrivning                                  & \bf Datum      \\ \hline \hline
+    1   & Utkast kursplan färdigskriven                    & 2015-09-09     \\ \hline
+    2   & Projektplan inlämnnad                            & 2015-09-11     \\ \hline
+    3   & Detaljplanering av teknisk del klar              & 2015-09-18     \\ \hline
+    4   & Planering av skrivand av projektrapport          & 2015-09-25     \\ \hline
+    5   & Elektronik färdigbyggt                           & 2015-09-25     \\ \hline
+    6   & Fungerande Grundsystem                           & 2015-10-02     \\ \hline
+    7   & Fungerande GUI-program                           & 2015-10-02     \\ \hline
+    8   & Fungerande Ljudeffektsalgoritmer                 & 2015-10-02     \\ \hline
+    9   & Tidig version av projektrapport inlämnad         & 2015-10-09     \\ \hline
+    10  & Grundsystem testat och verifierat                & 2015-10-09     \\ \hline
+    11  & GUI-program testat och verifierat                & 2015-10-09     \\ \hline
+    12  & Ljudeffektsalgoritmer testade och verifierade    & 2015-10-09     \\ \hline
+    13  & Oppositionskommentar inlämnad                    & 2015-10-15     \\ \hline
+    14  & Slutprodukt klar, testad och verifierad          & 2015-10-16     \\ \hline
+    15  & Demonstration genomförd                          & 2015-10-20     \\ \hline
+    16  & Slutgiltig projektrapport inlämnad               & 2015-10-22     \\ \hline
+  \end{tabular}
+\end{table}
+
+\newpage
+\section{Aktiviteter}
+
+Projektet har en tidsbudget på ca 1600 arbetstimmar, som är uppdelade på 8 veckor. En del av den tiden kommer tas upp av fast schemalagda aktiviteter såsom möten och föreläsningar, medans resten fördelas på aktiviteterna efter behov. Tabellen nedan har en grov uppskattning på hur mycket tid de olika aktiviteterna kan behöva, men tiden kan komma att omfördelas under projektets gång om någon aktivitet tar mer tid än beräknat.
+
+\begin{table}[h!]
+\centering
+  \small
+  \def\arraystretch{1.1}
+  \begin{tabular}{|l|l|l|} \hline
+    Nr    & \bf Beskrivning                                         & \bf Tidsåtgång    \\ \hline \hline
+    1     & Projektmöten                                            & 84 h              \\ \hline
+    2     & Planering inför skrivande a projektplan                 & 16 h              \\ \hline
+    3     & Skrivning av projektplan                                & 32 h              \\ \hline
+    4     & Föreläsningar                                           & 176 h             \\ \hline
+    5     & Studeering av föreläsningsmaterial                      & 88 h              \\ \hline
+    6     & Laborationer                                            & 32 h              \\ \hline
+    7     & Studering av kursmaterial                               & 32 h              \\ \hline
+    8     & Läs på om ljudsamples                                   & 16 h              \\ \hline
+    9     & Läs på om hårdvara som ska användas                     & 32 h              \\ \hline
+    10    & Konstruktion och test av elektronik AD/DA               & 88 h              \\ \hline
+    11    & Implementation och test av DA-kod                       & 52 h              \\ \hline
+    12    & Implementation och test av tonkontrollsalgoritme        & 52 h              \\ \hline
+    13    & Implementation och test av av ekoalgoritm               & 52 h              \\ \hline
+    14    & Implementation och test av serieportskod på PC          & 52 h              \\ \hline
+    15    & Implementation och test av serieportskod på hårdvara    & 52 h              \\ \hline
+    16    & Implementation och test av GUI-program                  & 52 h              \\ \hline
+    17    & Integrering av alla delar i main-funktion               & 52 h              \\ \hline
+    18    & Organisation/planering projektrapport                   & 64 h              \\ \hline
+    19    & Skapande av dokumentstruktur för projektrapport         & 32 h              \\ \hline
+    20    & Skrivning av utkast av projektrapport                   & 200 h             \\ \hline
+    21    & Granskning av utkast av projektrapport                  & 100 h             \\ \hline
+    22    & Skrivning av slutgiltig projektrapport                  & 100 h             \\ \hline
+    23    & Granskning av slutgiltlig projektrapport                & 64 h              \\ \hline
+    24    & Förberedelser av presentation                           & 64 h              \\ \hline
+    25    & Presentation av projekt                                 & 4 h               \\ \hline
+
+  \end{tabular}
+\end{table}
+
+\newpage
+\section{Tidsplan}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\columnwidth]{../../figurer/NEWTIDSPLAN}
+  
+  \label{fig:Gantt2}
+\end{figure}
+
+\section{Mötesplan}
+De veckomässiga mötena som kommer hållas med mentorn, så kallade Projektmöten, kommer ske varje vecka på onsdagar i EDIT-huset klockan 13:15.
+De möten som sker i mindre grupper, så kallade Arbetsmöten, kommer ske måndagar och fredagar klockan 10:00 i förbokat grupprum enligt överrenskommelse. Eventuella mindre arbetsmöten sker löpande vid behov.
+
+\newpage
+\section{Kommunikationsplan}
+
+\begin{table}[h!]
+\centering
+  \small
+  \def\arraystretch{1.1}
+  \begin{tabular}{|l|l|l|l|} \hline
+    \bf Vad                 & \bf När       & \bf Till      & \bf Hur               \\ \hline \hline
+     Möteskallelse LV1       & 2015-09-03    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Mötesprotokoll LV1      & 2015-09-04    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Möteskallelse LV2       & 2015-09-09    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Mötesprotokoll LV2      & 2015-09-10    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Projektplan             & 2015-09-11    & Lärarteam     & PP-inlämning (LaTeX)  \\ \hline
+    Möteskallelse LV3       & 2015-09-13    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Mötesprotokoll LV3      & 2015-09-14    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Möteskallelse LV4       & 2015-09-22    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Mötesprotokoll LV4      & 2015-09-23    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Möteskallelse LV5       & 2015-09-29    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Mötesprotokoll LV5      & 2015-09-30    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Möteskallelse LV6       & 2015-10-06    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Mötesprotokoll LV6      & 2015-10-07    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Projektrapportutkast    & 2015-10-09    & Lärarteam     & PP-inlämning (LaTeX)  \\ \hline
+    Möteskallelse LV7       & 2015-10-13    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Mötesprotokoll LV7      & 2015-10-14    & Alla          & PP-loggbok (PDF)      \\ \hline
+    Oppositionskommentar    & 2015-10-15    & Lärarteam     & PP-inlämning (LaTeX)  \\ \hline
+    Projektrapport          & 2015-10-22    & Lärarteam     & PP-inlämning (LaTeX)      \\ \hline
+  \end{tabular}
+\end{table}
+
+All kommunikation inom projektgruppen sker via facebookchatten samt facebookgruppen. Facebookgruppen används för att göra inlägg där diskussion krävs och alla behöver vara aktiva. Genom det förhindrar man att information försvinner i facebookchatten. Facebookchatten används för snabb kommunikation mellan medlemmarna. Gruppens möten är också ett sätt där man kan kan hålla sig uppdaterad om arbetet. All versionshantering sker via Git enligt överenskommelse inom gruppen.
+
+\newpage
+\section{Kvalitetsplan}
+\label{sec:kvalitetsplan}
+
+Ett system som fungerar korrekt och beständigt klassas som en självklarhet för en färdig produkt. Under projektets gång kommer därför flera tester att genomföras på de olika delar i systemet, detta är för att undvika krångliga felsökningar på ett helt system om det visar sig vara något fel. När produkten är färdig utförs även då tester, denna gång för att kontrollera att produkten i sin helhet fungerar som den ska. Kontrollerna kommer att utföras av flera olika medlemmar, dock inte av personen som utformade systemdelen i fråga då det är enklare att hitta fel om det undersöks med ett nytt perspektiv.
+
+Testerna kommer utföras på både hårdvara liksom mjukvara. Testerna för mjukvaran kommer visa att behandlingen av signalerna sker på korrekt sätt. I hårdvaran kontrolleras bland annat så AD-omvandlaren konverterar ljud-vågorna till signaler på samma sätt som DA-omvandlaren gör motsatsen. Detta så att förändringar av ljudet endast sker kontrollerat i mjukvaran, alltså ljudet efter DA-omvandlaren är samma som ljudet innan AD-omvandlaren med enbart de förändringar som programmerats i mjukvaran. 
+ 
+
+\bibliographystyle{IEEEtran}
+\bibliography{referenser}
+
+\end{document}

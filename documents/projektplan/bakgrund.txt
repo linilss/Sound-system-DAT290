@@ -1,0 +1,17 @@
+Bakgrund
+
+Att behandla ljud digitalt ger flera fördelar. Digitala ljudfilter är exakta och effekter kan implementeras med algoritmer. Dessutom är dagens konsumenter vana vid att kunna spela upp ljud ifrån sina digitala enheter. Då krävs att processorn klarar av att hantera ljud.
+
+För att en processor skall kunna behandla analoga signaler måste de först omvandlas till digitala signaler. En process som kallas för sampling används för att åstakomma detta.
+
+Två vanliga ljudbehandlignar är equalization och delay. Equalization innebär att man höjer eller sänker ljudstyrkan i specifika frekvensområden för att anpassa till ljudtypen. Delay är en ekoeffekt som kan användas för att få intrycket av att ljudet spelas i ett större rum. Det kan också användas ifall man vill ha en eko effekt.
+
+
+
+
+
+För att en processor skall kunna behandla analoga signaler måste de omvandlas till digitala signaler, detta kan göras med sampling. Ett samplingssyten sparar digitalt den analoga signalens spänningsnivå med jämna mellanrum. Samplingen ger oss en digital beskrivning av den analoga signalen.
+
+För att sampla ljudsignalen så bör signalen först filtreras så att bara de relevanta frekvenserna går vidare till samplingsystemet. Här används analoga låg- och högpassfilter för att begränsa signalen till ett specifikt frekvensområde.
+
+

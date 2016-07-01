@@ -1,0 +1,9 @@
+Mål:
+
+Målet med projektet är att skapa ett system som kan hantera, behandla och manipulera analogt ljud digitalt. Produkten kommer att kunna läsa av analoga ljudsignaler från en vald källa och skicka ut ljudet igen efter eventuella redigeringar från användaren. Redigeringar som användaren kan använda sig av kommer att innefatta:
+
+- En funktion som kan skapa ett eko till ljudet, en effekt som är mer känt som "delay". 
+- Produkten kommer att besitta en tonkontroll som möjliggör för användaren att sänka eller höja styrkan på tre olika frekvensområden, vilket tillåter mer djup i ljudredigeringen. Inom musikbranschen är funktionen känd som ”equalization”. 
+- Projektgruppen kommer att sträva efter att produkten skall besitta ökad stabilitet genom att använda flyttal i produktens kodning och programmering.
+
+

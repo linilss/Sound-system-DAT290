@@ -1,0 +1,34 @@
+
+Timer:
+Kod som togglar DAC output mellan 0 och 4045 en gång per sample. Detta
+ger en fyrkantsvåg på 24 kHz. Detta bekräftar att samplefrekvensen är 48 kHz.
+
+Hårdvara:
+För att noggrant testa hårdvaran delades testerna till olika delsystem. 
+
+Lågpassfilter:
+Då amplituden ska minska då frekvensen uppnår vår gränsfrekvens så ska styrkan på insignalen minska. Testerna gick ut på att koppla in en signalgenerator, därifrån ska vi jämföra signalen från generatorn med signalen som kommer ut efter filtret i ett oscilloskop. Det vi gör är att vrida upp frekvensen och kontrollerar värdena för att se när och hur stora förändringar. 
+Signalstyrkan börjar sänkas lite för tidigt i våra filter jämfört med ett idealt filter. Ett önskvärt filter förändrar inte amplituden innan 24 kHz och därefter slår över signalstyrkan till 0 volt, medan vårt filter börjar minskar amplituden innan 24 kHz och slås inte ut vid 24 kHz utan fortsätter minska. I och med att frekvensen efter filtret inte nått 0 kan det uppkomma störningar i utsignalen.
+
+
+Differensförstärkare (unipolär -> bipolär):
+Vår differensförstärkare skall konvertera en unipolär signal till en bipolär signal. Våra signalspann att förhålla oss till är 0-3 volt till (-2)-2. Eftersom vi har signalspannen kan testet utföras genom att vi använder signalintervallerna som används av systemet. Signalerna utläses i ett oscilliskop där man kan se resultatet. Målet är att den lägsta insignalsnivån motsvarar den lägsta acceptabla utsignalsnivån. Alltså att 0 volt blir -2 volt utsignal och 3 volt blir 2 volt utsignal.
+---efter DAC
+
+
+Differensförstärkare (bipolär -> unipolär):
+Den här differensförstärkaren ska sitta innan ADCn och konvertera en bipolär signal till en unipolär signal. Oscilloskopet ska vid testerna visa att signalen går från (-2)-2 till 0-3, utöver detta fungerade testerna likt vid unipolär till bipolär konvertering.
+
+Spänningsdelarna:
+En konstant likspänning skickas in i spänningsdelarna, där spänningsdelarna ska dela upp spänningen så att den satisfierar ekvationerna för differensförstärkarna. Testet utförs genaom att vi mäter upp spänningen ut från spänningsdelaren. Då man kan räkna ut värderna differensförstärkaren vill ha in så vet vi vad spänningsdelaren ska ha för utsignal. Vi läser därför bara av spänningen med en multimeter efter delaren och kontrollerar att den är korrekt. 
+
+
+DAC:
+Testerna för DACn gick ut på att skicka in ett värde till DACn och jämförde det med hur många volt det konverterades till. Om 0 skickades in kom 0 volt ut. Om vårt maxvärde 4095 (12 bitar) skickas in kom vårt max 3,3 volt ut. Med detta vet man att om man halverar bittalet halveras även antalet volt. Man skickade alltså in olika värden med hjälp av serieporten och kontrollräknade att man fick ut rätt volt med oscilloskop.
+ 
+
+ADC:
+En funktionsgenerator genererar en sinuskurva som går ifrån 0-3 volt. Signalen
+skickas in i ADCn på discoverykortet. Värdet som AD-omvandlaren ger skrivs ut
+i en terminal via seriekommunikationen. Värdet flukturerade mellan 0 och 2^12,
+alltså det förväntade värderna för vår 12 bit ADC.

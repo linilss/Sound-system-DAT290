@@ -1,0 +1,58 @@
+*Syfte:
+- Varför skall produkten existera?
+Ansvarig: Adis
+
+*Mål:
+- Slutprodukt
+- Vad är produkten?
+Ansvarig: Daniel
+
+*Bakgrund:
+- Teknisk info
+- Fyll i luckorna
+Ansvarig: Lucas
+
+*Systemöversikt:
+- Kompletteringar 1,2,3
+- Hårdvara
+- Figurer
+Ansvarig: Johan
+
+*Resursplan:
+- Resurser
+- Hårdvara,mjukvara
+- Lokaler
+- SSH
+Ansvarig: Linus
+
+*Milstolpar:
+- Deadlines
+Ansvarig: Andreas
+
+*Aktiviteter
+- Tabell med uppgifter
+Ansvarig: Andreas
+
+*Tidsplan:
+Ansvarig: Andreas
+
+*Mötesplan:
+- Projektmöte med mentor
+Ansvarig: Ajla
+
+* Kommunikationsplan
+Ansvarig: Ajla
+
+*Spelregler:
+- Vid 10 minuter = Kaka.
+Ansvarig: Alla
+
+*Kvalitetsplan
+- En rutin för att alla delar av
+projektet är testade och verifierade.
+Ansvarig: Kevin
+
+
+
+
+

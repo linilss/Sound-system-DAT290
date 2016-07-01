@@ -1,0 +1,19 @@
+Beskriv era rutiner för att verifiera respektive delsystem och,
+i slutändan, hela systemet. Ni kan till exempel använda en
+enkel verifieringsmall som ska fyllas i samband med att en del
+av systemet verifieras: Här kan man tänka sig rubriker som
+
+\begin{description}
+ \item[Komponent] Vilken del av systemet ska testas?
+ \item[Testsyfte] Vad ska testet visa?
+ \item[Utförande] Hur ska testet utföras? Vilka scenarior testas?
+ \item[Resultat] Vad är testresultatet?
+ \item[Analys] Vad innebär testets resultat? Behövs fler test
+               av komponenten? Behöver andra komponenter
+               testas ytterligare?
+\end{description}
+
+Tänk på att olika delar av systemet behöver olika
+verifieringsmetodik; medan mjukvara kan verifieras i det IDE
+(Integrated Design Environment) som ni använder, behöver ni
+använda mätutrustning för elektronik.

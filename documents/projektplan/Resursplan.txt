@@ -1,0 +1,20 @@
+
+Efter det första projektmötet fördelades roller till samtliga medlemmar. Att utses till en roll innebär inte att personen i fråga ensamt ansvarar för sitt område, utan snarare att rollinnehavaren ser till att utvecklingen inom området går i rätt riktning. Dessutom ser rollinnehavaren till att det tidigt kommuniceras till resten av projektgruppen om problem uppstått. 
+
+Projektet består av följande:
+Ajla Cano, Projektledare - ajlac@student.chalmers.se
+Adis Mahmutovic, Dokumentationsansvarig - adism@student.chalmers.se
+Andreas Eriksson, Systemintegrationsansvarig - eriandre@student.chalmers.se
+Lucas Bäckvall, Granskningsansvarig - lucasba@student.chalmers.se
+Kevin Nordenhög, Verifieringsansvarig - nkevin@student.chalmers.se
+Linus Nilsson, Resursansvarig - linunil@student.chalmers.se
+Johan Ben Mohammad, Teknikansvarig - johanmo@student.chalmers.se
+Daniel Chai, LaTeX- och Gitansvarig - chaid@student.chalmers.se
+
+Projektledaren gör, precis som framgår av rollnamnet, leder projektet och ser till att kallelser till mötena samt samarbetet inom gruppen fungerar. Projektets dokumentationsansvarige ansvarar för att angelägna filer hamnar i rätt mapp. Denne sammanställer även de uppdelade dokumenten till fullständiga LaTeX-filer. Systemintegrationsansvarige sköter kommunikationen mellan hårdvara och mjukvara. Granskningsansvarige ser till att dokument granskas, för att de inte ska innehålla brister vid inlämning. Verifieringsansvarig följer en tydlig kvalitetsplan för att verifiera att hård- och mjukvara fungerar planenligt. Resursansvarig ansvarar för de resurser gruppen tillhandahåller, såsom dialog med lärarna, bokning av rum och hårdvara. Teknikansvarige har som roll att hålla lite bättre koll än de andra på den hårdvara som används så att andra gruppmedlemmar kan konsultera denne för enklare frågor angående just hårdvaran. LaTeX-/gitansvarig ser till att git inte strular, även att alla förstår hur Git och LaTeX används.
+
+Större delen av den tunga och viktiga kommunikationen inom gruppen sker via arbets- och projektmöten. Projektmötena i synnerhet då det är möjligt att bolla idéer och funderingar med projektmentorn Christoffer Fougstedt. Gruppen använder sig även av mobilapplikationen Messenger, i vilken en gruppchatt skapats där kortare kommunikation och småfrågor ligger i fokus. Dessutom används en Facebook-grupp för återkommande ärenden så att angelägna meddelanden inte försvinner i flödet.
+
+Både projekts- och arbetsmöten hålls i EDIT-husets grupprum. Dessa bokas i slutet av pågående möten, i samband med planeringen inför nästa. Det uppdelade arbetet sker i laborationsutrymmen, även de i EDIT-huset, men även andra ställen på Campus.	 
+
+Hårdvarumässigt kommer projektet byggas kring processorn STM32F407VGT6 och dess inbyggda periferienheter AD- och DA-omvandlare. Processorn, från företaget STMicroelectronics, är baserad på Cortex-M4, deras mest avancerade arkitekturvariant. Med 1 Mbyte FLASH och 192 kbyte SRAM körs den med klockfrekvensen 168 MHz (*PROJEKTDIRIKTIVET*). 

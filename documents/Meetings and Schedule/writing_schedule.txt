@@ -1,0 +1,8 @@
+ti 8/9	16:00:	Start writing project plan.
+
+on 9/9	13:15:	Work on project plan.
+
+to 10/9	11:00:	Possibility to finish project plan.
+		13:15:	Project plan peer response.
+
+fr 11/9 23:59:	Project plan deadline.

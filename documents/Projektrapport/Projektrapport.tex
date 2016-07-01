@@ -1,0 +1,414 @@
+%Template created for DAT290
+%Per Larsson-Edefors, Chalmers
+%v2013: 2013-08-21
+%v2014: 2014-08-28, 2014-11-11
+%v2015: 2015-08-24
+
+
+\documentclass[a4paper]{article}
+
+%Mathtools for writing formulas
+\usepackage{mathtools}
+
+%Figure support for \includegraphics
+\usepackage{graphicx}
+
+%Control of caption font for figures and tables
+\usepackage[font=small]{caption}
+%Package for label
+\usepackage{hyperref}
+
+%Setting up how paragraphs are formatted
+\setlength{\parindent}{0mm}
+\setlength{\itemsep}{0ex}
+\setlength{\parskip}{2ex}
+\setlength{\parsep}{2ex}
+\setlength{\partopsep}{0ex}
+\setlength{\topsep}{0ex}
+
+%Swedish is supported once we add these packages
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+
+\title{
+{\bf Projektrapport DAT290}\\
+\vspace{0.2cm}
+%
+%Give the project name below
+%
+Samplat ljudsystem Projektgrupp 2\\ 
+\vspace{1cm}
+%
+%Give the project group member names below
+%Note that \\ terminates the line
+%
+Lucas Bäckvall, Ajla Cano,  \\
+Daniel Chai, Andreas Eriksson,\\
+ Adis Mahmutovic, Johan Ben Mohammad, \\
+ Linus Nilsson, Kevin Nordenhög\\
+\vspace{1cm}
+2015-10-09\\
+\vspace{7cm}
+%
+%Give the name of the member responsible for review and the date
+%when the review was finalized.
+%
+%Give the project leader name and the date when the he/she approved
+%the project plan
+%
+%No signatures are necessary, but the names are as they give us *traceability*
+%
+\normalsize{
+  \begin{tabular}{|l|l|l|}  \hline
+              & \bf Namn                           & \bf Datum   \\ \hline \hline
+     Granskad &    Lucas Bäckvall                   & 2015-10-09  \\ \hline
+     Godkänd  &        Ajla Cano           & 2015-10-09  \\ \hline
+  \end{tabular}}
+}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------
+
+\section{Introduktion}
+Ljudeffekter är någonting som används mycket inom musik- och filmbranschen för att göra musik- och ljudupplevelsen så bra som möjligt. För att skapa dessa ljudeffekter så tillämpas elektronisk utrustning, så kallade ljudsystem. Dessa är till för att omvandla ljud till digitala signaler. Hela processen görs i realtid vilket ger möjlighet till lättare användning.
+\newline
+
+
+\subsection{Syfte}
+
+Med den moderna tekniken som människan besitter idag har möjligheten till ljudmanipulation blivit mer och mer eftertraktad. En produkt som manipulerar ljud digitalt är användbart eftersom man till skillnad från ett analogt system inte behöver bygga om systemet för att göra ändringar. Möjligheten att lägga till en ekoeffekt skapar en illusion av att ljud spelas upp i ett stort rum. En slags tonkontroll kan även gynna vid detaljändringar när oljud på en viss frekvens skall tas bort. Syftet med arbetet är att framställa en stabil samplingsprodukt som kommer ge en eventuellt bättre lyssningsupplevelse genom olika effekter, så som olika filter samt en ekoeffekt.
+
+\subsection{Mål}
+
+Målet med projektet är att skapa ett system som kan hantera, behandla och manipulera analogt ljud som konverteras till digitala signaler. Produkten kommer att kunna läsa av analoga ljudsignaler från en vald källa och skicka ut ljudet igen efter eventuella redigeringar från användaren. Inläsningen kommer att ske i realtid för att sedan manipulera ljudet följt av att det skickas vidare till lämplig periferienhet. 
+För att säkerställa användarvänlighet kommer ett användargränssnitt också att implementeras och på så sätt göra det enklare att styra produkten. Redigeringar som användaren kan använda sig av kommer att innefatta:
+
+\begin{itemize}
+  \item En funktion som kan skapa ett eko till ljudet, en effekt som är mer känt som ``delay''.
+  \item Produkten kommer att stödja en tonkontroll som möjliggör för användaren att sänka eller höja styrkan på tre olika frekvensområden, vilket tillåter mer avancerade ljudredigeringar. Inom musikbranschen är funktionen känd som ``equalization''. 
+  \item Målet är att vidareutveckla produkten på så sätt att den besitter en ökad stabilitet genom att använda flyttal i produktens kodning och programmering, eftersom att användingen av flyttal tillåter för mer exakta värden.
+
+\end{itemize}
+
+\subsection{Arbetsmetod}
+
+Utförande av ett projekt sker oftast i två steg: teoretiskt samt praktiskt. Den teoretiska delen handlar mycket om att förstå det ämnet projektet handlar om. De arbetsuppgifter som ingår i teorin är bland annat forskning, undersökning samt inhämtning av generell information som är relevant. Teorin möjliggör att gå vidare med den praktikska delen av projektet. Den praktiska delen går ut på att realisera och verkställa allt till en slutprodukt.
+
+\subsubsection{Kretskort} 
+En undersökning av kretskortet och dess processor skedde för att få en bättre uppfattning om funktionaliteten. Förutom all åtkomst till referensmanualer, exempelkod samt olika datablad så hittades mycket av informationen genom internetsökningar. Då kretskortet som används redan har de flesta essentiella delarna så behövdes bara kunskap om dessa. Mer information i detalj angående hur de ingående delarna funkar kan hittas under \ref{sec:Delsystem} Delsystem.
+
+\subsubsection{Grundsystem} 
+Mjukvarudelen av grundsystemet implementerades i utveckingsmiljön Codelite. AD-koden testades först
+genom att skicka in signaler till AD-omvandlaren med en signalgenerator, som sedan skrevs till
+serieporten på det inbyggda systemet. DA-koden testades genom att genom serieporten mata in olika
+värden till det inbyggda systemet som matades ut till ett oscilloskop via DA-omvandlaren. När AD-
+och DA-koden fungerade var för sig sattes de ihop, och  hela systemet testades genom att skicka
+en signal igenom hela grundsystemet från signalgenerator till oscilloskop. Sedan testades
+systemet med en riktig ljudsignal från en ljudkälla till högtalare.
+
+Lågpassfiltret som behövs innan AD-omvandlingen och efter DA-omvandlingen skall begränsa frekvensspannet till max halva samplingsfrekvensen. Samplingsfrekvensen är 48 KHz, så brytfrekvensen för filtret skall ligga på max 24 KHz. Kopplingsschema för filtret samt formel för att beräkna brytfrekvensen hämtades från dokumentet \emph{Filter Design} \cite{FilterDesign}.
+
+Omvandligarna från unipolär till bipoläromvandlingen och tvärtom sker med en differansförstärkare som är designad enligt tidigare kunskaper \cite{OperationalAmplifiers}. Differansförstärkaren både försjuter och förstärker, eller dämpar, signalen. En konstant referensspänning avgör förskjutningen, och värderna på resistorerna avgör förstärkning eller dämpning. Resistorer och referensspänning väljs ut baserat på vilken omvandling som skall ske.
+
+\newpage
+\subsubsection{Användargränssnitt} 
+För användargränssnitt-programmets konstruktion valdes programmeringsspråket Java eftersom språkets inbyggda bibliotek \emph{Swing} är till för användargränssnitt. Det tillåter en snabb konstruktion av ett system som både ser bra ut och är lätt att använda. Språket Java har även ett bibliotek som ger möjlighet för kommunikation med serieporten, vilket är något som behövde användas i det aktuella arbetet.
+
+\subsubsection{Ljudeffektsalgoritmer}
+Vid ljudeffektsalgoritmernas konstruktion krävdes en del faktainsamling inom hur ljud lagras och processas digitalt, samt om algoritmerna som skulle användas. För att kunna börja arbeta med algritmerna innan grundsystemet var klart implementerades de först i ett PC program. PC-programmet skrevs i C för att kunna återanvända så mycket kod som möjligt i slutprodukten. Som ersättning för komponenterna i grundsystemet användes en tongenerator istället för AD-hårdvaran och ljudkortet som tillhör PCn istället för DA-hårdvaran. En förenklad verison av algoritmerna implementerades, och när de fungerade utökades algoritmerna till att ha funktionaliteten som skulle finnas i slutprodukten.
+
+
+\subsubsection{Verktyg och Material}
+Vid framställningen av slutprodukten användes ett STMicroelectronics kretskort STM32F4DISCOVERY. Det är ett inbyggt system med en 
+STM32F407VGT6 processor. I processorn finns både AD- och DA-omvandlare \cite{stmdata} \cite{stmuser}. För att kunna programmera och kommunicera med en extern enhet eller dator så användes de inbyggda portarna för USB- och seriekommunikation. 
+Utvecklingsmiljön \emph{CodeLite} användes under projektets gång samt tidigare kunskaper inom seriekommunikation. För att få ner det skrivna programmet till processorn på Discovery-kortet användes programmet \emph{ST Link}. För att kunna få kommunikation mellan kretskortet och datorn så användes XCCs terminal där grundsystemet felsöktes och testades.
+
+\newpage
+\section{Teknisk beskrivning}
+Systemet i sin helhet går ut på att ta emot ljud, lägga på ett filter och sedan skicka ut den nya ljudsignalen. Det är ett digitalt samplingssystem som skall ta en analog ljudsignal och sampla fram en digital representation. Den digitala representationen modifieras av det inbyggda systemet och skall sedan skickas ut som en analog ljudsignal. Detta innebär inte bara en AD-omvandling, utan även omvandling mellan de olika signalspannen på själva systemet och vad hårdvaran klarar av.
+
+\subsection{Bakgrund}
+Att behandla ljud digitalt ger flera fördelar. Digitala ljudfilter är exakta och effekter kan implementeras med algoritmer i processorer. Dessutom är dagens konsumenter vana vid att kunna spela upp ljud ifrån sina digitala enheter. För att en processor skall åstadkomma detta behövs en metod för att hantera analoga signaler.
+
+En metod för att hantera analoga signaler är att konvertera dem till digitala signaler med sampling. Kortfattat betyder det att spänningsnivån i den analoga signalen sparas med jämna mellanrum som ett digitalt binärtal \cite{adc}.
+
+Två vanliga ljudbehandlignar är tonkontroll och ekoeffekt. Tonkontroll innebär att ljudstyrkan höjs eller sänks i specifika frekvensområden. Ekoeffekten kan användas för att få intrycket av att ljudet spelas i ett större rum. Det kan också användas ifall ett eko önskas.
+
+\subsection{Systemöversikt}
+\label{sec:systemoversikt}
+% Vart förklarar vi unipolär och bipolär? Förslag: Bakgrund i introduktion, före arbetsmetod
+% I Bakgrunden kan vi isåfall förklara i princip alla termer.
+En analog insignal konverteras till en digital signal så signalen kan manipuleras av digitala algoritmer. På figur \ref{fig:process} så visas ljudsignalens väg igenom systemet. Den analoga signalen omvandlas ifrån bipolär till unipolär komponent för att matcha signalspannet som det inbygda systemet kan hantera. Sedan filtreras signalen i ett lågpassfilter. Ljudet samplas av AD-omvandlaren till en digital signal. En klocka används för att synkronisera AD-omvandlingen, DA-omvandlingen och ljudbehandlingen. Efter AD-omvandlingen så behandlas den digitala signalen av ljudeffektsalgoritmerna. Algoritmerna är en tonkontroll och en ekoeffekt. Dessa använder flyttal för att undvika klippning under behandlingen. Efteråt omvandlas ljudet tillbaka till analogt med DA-omvandlaren. Ljudet filtreras efter DA-omvandlingen, och konverteras tillbaka från unipolär till bipolär.
+
+\begin{figure}[h!]
+  % Figuren måste ändras. Fråga Lucas eller Andreas om vad som ska ändras.
+  \centering
+  \includegraphics[width=1\columnwidth]{../figurer/NEWprocess}
+  \caption{Ljudsignalens väg igenom systemet.}
+  \label{fig:process}
+\end{figure}
+
+\newpage
+\subsection{Delsystem}
+\label{sec:Delsystem}
+Här beskrivs varje delsystem. Delarna beskrivs i den ordningen signalen passerar igenom systemet, se figur \ref{fig:process}. Användargränssnittet, som står utanför signalvägen, beskrivs precis innan signalbehandlingen eftersom användargränssnittets inställningar bestämmer hur signalbehandlingen går till.
+
+\subsubsection{Omvandlare från bipolär till unipolär signal}
+Systemet förutsätter en bipolär analog signal med signalspann -2 till 2 volt som insignal. Eftersom AD-omvandlaren arbetar med en unipolär analog signal med signalspann 0 till 3 volt så behövs en omvandlare. Konvertering ifrån bipolär till unipolär signal sker genom en differensförstärkare, se figur \ref{fig:biuni}. Eftersom signalspannen för insignal och utsignal är kända så kan värdena på resistorerna $R_1$ och $R_2$ samt den konstanta referensspänningenspänningen $U_{offset}$ beräknas med följade formel:
+\newline
+\[U_{ut} = \frac{R_2}{R_1}(U_{in} - U_{offset})\]
+\newline
+
+Det framgår av formeln att $U_{offset}$ emellanåt behöver vara negativ för att $(U_{in} - U_{offset})$ skall komma ovanför nollstrecket och därmed uppfylla definitionen av en unipolär signal. Detta görs genom att, med hjälp av en spänningsdelare (\ref{sec:spanning}), dela den negativa och konstanta spänningen från nätaggregatet. 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\columnwidth]{../figurer/Kopplingscheman/bipolar-till-unipolarPNG}
+  \caption{Kopplingsschema för spänningsdelare.}
+  \label{fig:biuni}
+\end{figure}
+
+\subsubsection{Spänningsdelare}
+\label{sec:spanning}
+%TODO: Tog tidigare bort en "(se figur x)" referens i texten innan den skickades in till första utkast. Är detta något som behöver läggas in igen?
+Omvandlaren från bipolär till unipolär signal kräver en specifik konstant referensspänning, och omvandlaren från unipolär till bipolär behöver en annan konstant referensspänning. En spänningsdelare, se figurer \ref{fig:spanning} och \ref{fig:spanning2}, kan ge oss det genom att sänka spänningen på en signal. Driftspänningen för förstärkaren i omvandlaren från bipolär till unipolär signal används som insignal till spänningsdelaren. Utsignalen kan nu bestämmas genom att räkna på resistorvärden i följande formel:
+\newline
+\[U_{out} = \frac{R_2}{R_1 + R_2} . U_{in}\]
+\newline
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\columnwidth]{../figurer/Kopplingscheman/resistorbaserad-spanningsdelare-2PNG}
+  \caption{Kopplingsschema för spänningsdelare.}
+  \label{fig:spanning}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\columnwidth]{../figurer/Kopplingscheman/resistorbaserad-spanningsdelarePNG}
+  \caption{Kopplingsschema för spänningsdelare.}
+  \label{fig:spanning2}
+\end{figure}
+
+\subsubsection{Lågpassfilter}
+Nyqvist-Shannons samplingsteori säger att om man vill undvika samplingsfel, bör samplingsfrekvensen vara minst dubbla insignalsfrekvensen. För att undvika för höga frekvenser i insignalen används ett lågpassfilter (se figur \ref{fig:lowpass}). När insignalens frekvens uppnår ett bestämt värde börjar lågpassfiltret sänka styrkan på insignalen och filtrerar därmed bort överflödiga insignaler. Eftersom systemets samplingsfrekvens är 48 kHz är gränsfrekvensen möjlig att beräkna enligt Nyqvistteorin. Utifrån detta bestäms värdena på filtrets övriga komponenter enligt följande formel:
+\newline
+\[f_c = \frac{1}{2\pi RC}\]
+\newline
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\columnwidth]{../figurer/Kopplingscheman/easy-low-pass-filterPNG}
+  \caption{Kopplingsschema för lågpassfilter.}
+  \label{fig:lowpass}
+\end{figure}
+
+\subsubsection{Analog till digital omvandlare}
+
+Den analoga insignalen återskapas digitalt genom att använda en AD-omvandlare.
+AD-omvandlaren läses av med en samplingsfrekvens av 48 kHz. Detta görs genom att
+använda en klocka som med den frekvensen utlöser ett avbrott. Vid avbrottet läses
+ett sampel från AD-omvandlaren. Samplet som fås ut är ett 12-bitars
+heltal \cite{stmdata}. Detta omvandlas till ett flyttal och skalas
+för att få ett värde mellan -1.0 och +1.0, vilket är vad resten av delsystemen
+arbetar med. Samplet skickas sedan vidare till nästa steg i behandlingen.
+
+\newpage
+\subsubsection{Grafiskt användargränssnitt}
+
+Ett program på PC används för att styra ljudeffektsalgoritmerna. Programmet
+består av ett enkelt grafiskt användargränssnitt som används för att ställa in
+värden på ett par olika parametrar. Programmet är skrivet i Java. För att
+kommunicera med slutprodukten används en java-klass som beskrivs under
+rubriken \ref{sec:Serieportskommunikation} Serieportskommunikation.
+
+För tonkontrollsfiltret går det att ställa in var gränserna på frekvensbanden
+går samt hur stor förändring i volym som skall ske i varje frekvensband. För
+eko-algoritmen går det att ställa in hur stor fördröjning som sker mellan
+insignalen och ekot, samt hur stor volymminskning som ekot har jämfört med
+insignalen. Mer information om hur man använder programmet finns under
+rubriken \ref{sec:Användarhandledning} Användarhandledning.
+
+\subsubsection{Serieportskommunikation}
+\label{sec:Serieportskommunikation}
+
+Kommunikation mellan hårdvara och PC görs via en serieport. Denna används för att 
+skicka parametrarna som de digitala filtren skall använda från PC till hårdvara.
+Kommunikationen sker med en serieportskonfiguration på 9600 baud med en
+stoppbit och ingen paritet.
+
+Protokollet som används är textbaserat. Kommandon skickas från PC på formen
+$XNZ$ där $X$ är en bokstav som anger vilken parameter som skall sättas, $N$ är värdet
+på parametern vilket kan vara en eller flera siffror. Tecknet $Z$ skickas för 
+att indikera att kommandot har nått sitt slut. Alla andra tecken ignoreras.
+Siffran konverteras till flyttal på hårdvarusidan genom att dividera talet
+det får med 10 000, vill man till exempel sätta parameter A till 12.34 så skickar man
+kommandot A123400Z.
+
+På PC-sidan består kommunikationen av en java-klass som har metoder för att 
+sätta parametrarna, omvandlar dessa till serieportskommandon, och skickar
+kommandorna via angiven serieport. Klassen använder sig av Java Communications API
+från javas standardbibliotek för att hantera kommunikation med serieporten.
+Java-klassen gör även en del beräkningar, signalstyrkeförändringar räknas om
+från decibel till den linjära omräkningsfaktor som hårdvaran tar som 
+parameter. Det finns ingen metod för att sätta den maximala teoretiska volymen,
+utan denna räknas ut av värderna av de andra parametrarna, och skickas som ett
+extra kommando när något av parametrarna den beror på har ändrats.
+
+På hårdvarusidan så består kommunikationen av en funktion som läser av och 
+tolkar meddelanden som kommer in. När den har fått ett komplett och korrekt
+kommando lagrar den det nya värdet på parametern i minnet där de andra delarna
+av programmet läser av den. All annan indata ignoreras. Det finns också en
+samling funktioner som skriver information till serieporten som är avsedda att 
+användas vid felsökning.
+
+% TODO: Tabell över parametrar
+
+\subsubsection{Tonkontrollsfilter}
+
+Tonkontrollsfiltret höjer eller sänker amplituden på signalen i angivna
+frekvensband. Filtret stödjer kontroll i tre olika frekvensband, dessa band
+överlappar inte och täcker tillsammans in hela frekvensområdet. Filtret är
+implementerat i mjukvara i form av en funktion i programmerinsspråket C.
+
+Filtret består av en funktion som tar in ett sampel, gör en uppskattning av
+vad den nuvarande frekvensen är, och multiplicerar samplet med en
+omräkningsfaktor beroende på vilket frekvensband samplet ligger i.
+Omräkningsfaktorerna är angivna som parametrar till funktionen. Den 
+nuvarande frekvensen uppskattas genom att räkna hur många samplar det går 
+mellan varje gång signalen passerar nollnivån. Det antalet divideras sedan med 
+halva samplingsfrekvensen för att få en uppskattning av den nuvarande
+frekvensen.
+
+I områden som ligger nära gränserna för frekvensbanden används inte den 
+angivna omräkningsfaktorn rakt av, utan funktionen gör en linjär interpolering
+av de båda faktorerna för frekvensbanden, med olika vikt givet till faktorerna
+beroende på hur nära och vilken sida av gränsen den nuvarande frekvensen är. 
+Hur långt ifrån gränsen som interpoleringen sker är beroende på
+hur hög frekvensengränsen är. Detta för att kompensera för att det
+mänskliga örat uppfattar storleken på förändringar i ljud beroende på hur hög
+frekvensen är.
+
+% TODO: Figur som illustrerar tonkontrollsfiltret med interpolering]
+
+\subsubsection{Ekoeffektsfilter}
+
+Ekoeffektsfiltret lägger på en ekoeffekt genom att kombinera den nuvarande 
+signalen med en tidigare signal vars volym har minskats. Filtret är 
+implementerat i mjukvara i form av en funktion i programmeringsspråket C.
+%TODO: I en av meningarna blir det mycket sampel. Går att omkonstruera meningen?
+Funktionen har en buffert där den sparar tidigare samplar. Storleken på 
+bufferten anges som en parameter, och genom den kan man styra fördröjningen 
+mellan signalen och ekot, eftersom fördröjningen blir lika med det antal 
+samplar delat på samplingsfrekvensen. När funktionen körs på ett sampel så
+adderar den samplet med samplet som ligger på nuvarande position i bufferten.
+Den kopierar sedan det kombinerade samplet till bufferten, samtidigt som den
+multiplicerar kopian med en omräkningsfaktor för att minska volymen.
+Omräkningsfaktorn för volymen anges som en parameter till funktionen. Den går
+sedan till nästa plats i bufferten. När funktionen når slutet av bufferten så
+börjar den om på första positionen, och på så sätt fås ett eko som repeteras
+kontinuerligt, med volymen minskad mellan varje repetition.
+
+% TODO: Figur?
+
+\subsubsection{Digital till analog omvandlare}
+Funktionen som styr DA-omvandligen tar ett sampel. För att undvika klippning
+så skalar den ner amplituden så att samplet hamnar inom signalomfånget
+genom att dividera samplet med det högsta teoretiska amplitud som ett sampel
+kan ha efter de andra stegen. Den skalar därefter om samplet till ett
+12-bitars heltal, vilket är vad DA-omvandlaren förväntar sig som indata \cite{stmdata}.
+Den skickar därefter samplet till DA-hårdvaran.
+
+\subsubsection{Utjämningsfilter}
+DA omvandlaren skapar en analog signal av diskreta värden, så den analoga signalen ser ut som en trappa. Ett exakt likadant lågpassfilter som användes innan AD-omvandlingen används för att återskapa en kontinuerlig signal.
+
+\subsubsection{Omvandlare från unipolär till bipolär signal}
+
+Systemet förutsätter en bipolär analog signal med signalspann -2 till 2 volt som utsignal. Eftersom DA-omvandlaren arbetar med en unipolär analog signal med signalspann 0 till 3 volt så behövs en omvandlare. Konvertering från bipolär till unipolär signal sker med en differensförstärkare (se figur \ref{fig:unibi}). Eftersom signalspannen är kända och referensspänningen är satt till 1,6 volt kan värdena på resistorerna beräknas enligt följade formel:
+\newline
+\[U_{out} = \frac{R_4}{R_1} . \frac{R_1 + R_2}{R_3 + R_4} . U_{in1} - \frac{R_2}{R_1} . U_{in2}\]
+\newline
+Här ser man att om man sätter $R_4 = R_2$ och $R_3 = R_1$, fås följande formel: 
+\newline
+\[U_{out} = \frac{R_2}{R_1} (U_{in1} - U_{in2})\]
+\newline
+Den sistnämnda formeln är enklare att beräkna och lämpar sig bättre än föregående för unipolär till bipolär konvertering. 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\columnwidth]{../figurer/Kopplingscheman/unipolar-till-bipolarPNG}
+  \caption{Kopplingsschema för unipolär till bipolär omvandlare.}
+  \label{fig:unibi}
+\end{figure}
+
+\newpage
+\section{Användarhandledning}
+\label{sec:Användarhandledning}
+% TODO: Det skall läggas till några bilder efter att texten är färdig.
+% Det borde finnas tydligare beskrivning på vad det finns för knappar och vad de gör,
+% mer i linje med en manual.
+% Det borde även finnas en beskrivning av hur användaren använder hårdvaran
+
+Den som använder produkten kommer att ha tillgång till ett användargränssnitt som är skapat för att underlätta styrandet av ljudeffekterna som finns tillgängliga i hårdvaran. Användargränssnitts-programet har konstruerats med avsikten att den skall vara tydlig och lätt att använda. Med enkla knapptryck går det att navigera mellan de olika funktionerna samt ställa in och ändra värden med olika glidare, till exempel att ställa in nya frekvensintervaller vid tonkontrollen och volymnivåer. Användargränssnitts-programet tillåter för kontroll av en ekoeffekt samt tonkontroll och är konstruerat så att förändringar i inställningar träder i kraft direkt när ändringar sker.
+
+\subsection{Ekoeffekt}
+Vid kontroll av ekoeffekten finns möjligheten att ställa in ekots fördröjning samt ljudnivå. Därefter går det även att välja mellan olika förhandsinställda lägen som påverkar ekoeffekten på olika sätt och som kan passa in vid olika typer av arbeten.
+
+\subsection{Tonkontroll}
+För att styra tonkontrollen finns det tillgång för tre glidare som sänker eller höjer volymen på respektive frekvensintervall där det finns ett lågt, mellan och högt frekvensintervall. Tonkontrollen tillåter även för förändring av dessa frekvensintervall med hjälp av en knapp för varje frekvensintervall där gränserna för intervallen går att ändra på, om justeringar skulle behövas på lite mer detaljerat plan.
+
+\section{Resultat}
+%TODO: OBS: "Togglar", "output" på andra paragrafen. Finns det svenska ord för dessa? Det hoppas även rätt mycket mellan presens och imperfekt i texten. Även om vi det trots allt är två olika tider vi snackar om kan det vara en tanke att skriva allt i imperfekt form och låtsas som att vi skriver Resultatet efter att uppgiften redan har avslutats? D
+Följande tester har utförts på systemet:
+
+Vid varje avbrott sätts signalen i DA-omvandlaren till omväxlande hög och låg. I ett oscilliskop synns då en fyrkantsvåg med frekvensen 24 kHz. Detta verifierar att avbrotten sker med en frekvens på 48 kHz.
+
+Den analoga signalen som läses av förs igenom en differensförstärkare för att konvertera signalen till bipolär från unipolär. En signal som gick från -2 till 2 volt skickades igenom differensförstärkaren, och med ett oscilloskop uppmättes utsignalen att gå mellan 0 och 3 volt.
+\newpage
+En funktionsgenerator genererar signaler med olika frekvenser. Signalerna passerar lågpassfiltret och utsignalen mäts av ett oscilloskop. Om insignalens frekvens överskred brytfrekvensen så dämpades utsignalen. Signalstyrkan sänks lite för tidigt i våra filter jämfört med ett idealt filter. Ett önskvärt filter förändrar inte amplituden innan 24 kHz och därefter slår över signalstyrkan till 0 volt. Vårt filter börjar minska amplituden innan 24 kHz och slår inte ut vid 24 kHz utan fortsätter minska. I och med att frekvensen efter filtret inte nått 0 kan det uppkomma störningar i utsignalen.
+
+Omvandlingen av analog till digital signal sker i AD-omvandlaren. Detta testades genom att med hjälp av en funktionsgenerator skicka in en sinuskurva som går mellan 0 till 3 volt. AD-omvandlarens värde skrivs ut i en terminal via seriekommunikation. De utskrivna värdena varierade mellan 0 och $2^{12}$, vilket är de teoretiskt förväntade värdena i en 12 bitars AD-omvandlare.
+
+Omvandlig av digital till analog signal realiseras med DA-omvandlaren. Omvandlaren testades genom att ett värde skickades in till omvandlaren som konverterade till en spänning. Om 0 skickas in, kom 0 volt ut. Om det teoretiska maxvärdet (4095) skickas in mättes 3 volt upp.
+
+Den analoga signalen som läses av förs igenom en differensförstärkare för att konvertera signalen till bipolär från unipolär. En signal som gick från 0 till 3 volt skickades igenom differensförstärkaren, och med ett oscilloskop uppmättes utsignalen att gå mellan -2 och 2 volt.
+
+
+%TODO: Skriva om DSP.
+
+\section{Diskussion}
+%TODO: I paragraf 2: "En produkt med ett filter som ej förändrar insignalfrekvensen korrekt skulle resultera i ett samplingssystem som inte återspelar ljuden man spelade in, utan en förvrängd version av ljudinspelningen" denna mening är identisk med en mening som finns tidigare i texten under "Spänningsdelare". Kan vara bra att skriva om en av dem. D
+Syftet med det här projektet var att skapa en samplingprodukt som skall hjälpa till att förbättra lyssnarupplevelsen. För att skapa denna produkt krävs flera delsystem som behöver separata tester och delat fokus.  
+
+Vid tester som utfördes på lågpassfiltret fokuserades det på att undersöka utsignalens frekvens jämfört med insignalens. För att undvika så stora samplingsfel som möjligt bör filtrets gränsfrekvens vara hälften så stor som samplingsfrekvensen. Det var just detta testerna av lågpassfiltret gick ut på, att undersöka var filtret börjar reducera styrkan på signalen i fråga och hur mycket. En produkt med ett filter som ej förändrar insignalfrekvensen korrekt skulle resultera i ett samplingssystem som inte återskapar insignalen, utan en förvrängd version av denna. Om man även senare lägger på ljudeffekter på signalen är resultatet svårt att förutsäga.
+
+Testerna av differensförstärkarna handlade om att konvertera en unipolär signal till en bipolär och vice versa. Svårigheterna vid koppling av dessa förstärkare var att beräkna rätt värden på resistorer och offset-spänning för att få en optimal utsignal. Tanken var först att använda en summerande förstärkare vid konvertering från bipolär till unipolär signal. Detta rekommenderades inte av handledaren. Vi insåg sedan att samma effekt kunde realiseras med hjälp av en konstant negativ offset-spänning i formeln för differensförstärkare. Eftersom vi kände till spannen för ut- och insignal kunde vi med hjälp av ekvationerna, tillhörande differensförstärkare, beräkna dessa värden. Vi upplevde att de teoretiskt uträknade värdena inte stämde överrens med de värden som uppmättes. Visserligen var de teoretiska värdena inte helt korrekta, då vi enbart kunde välja värden på motstånd och kondensatorer utifrån E12-serien. Därför var vi tvungna att seriekoppla två par resistorer och ändra offset-spänningarna för att få en optimal utsignal. Ändring av offset-spänning innebar ytterligare problem då även OP-förstärkaren behöver sin driftspänning som ligger i ett intervall. Detta problemet kunde lösas med hjälp av spänningsdelare.
+
+Spänningsdelarna används för att dela upp spänning, exempelvis om det skulle behövas olika spänningar men enbart har tillgång till positiv spänning från ett nätaggregat. Vad vi ville åstadkomma med dessa var att få en lämplig offset-spänning till var och en av differensförstärkarna. Anledningen till användning av våra spänningsdelare var att vi inte ville sänka offset-spänningen till förstärkarna, utan att påverka OP-förstärkarens funktionalitet.
+
+För att vara säkra på att effekter som till exempel ekoeffekten fungerar innan det implementeras till samplingssystemet användes som tidigare nämnts tester i form av simuleringar på datorn. Detta gjorde att man med säkerhet vet att koden till effekten fungerar och att det förmodligen enbart krävs små justeringar för koden att fungera med hela systemet. Denna princip användes för alla effekter som finns tillgängliga på användargränssnittet.
+
+Serieportskommunikationen var av stor vikt för att kunna testa grundsystemet i sin helhet. Under projektets gång uppstod dock problem och kommunikationen mellan PC och mikrodatorn tycktes inte fungera. Vid testförsök uppmärksammades fel på hårdvaran och vissa komponenter behövdes bytas ut. Detta problem resulterade i att grundsystemet ej blev klart i tid och milstolpen för grundsystemet bler förskjuten några dagar.
+
+
+%subsection{Komponenter}  -  ?
+
+
+
+%\section{Slutsats}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{referenser}
+
+\end{document}
